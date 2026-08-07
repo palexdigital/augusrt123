@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocket | AI App Builder &amp; Vibe Solutioning Platform</title>
+  <link rel="icon" type="image/png" href="logo_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black-1000: #1e1c1a;
+      --black-900: #38342f;
+      --black-800: #5a5650;
+      --black-700: #827d76;
+      --black-600: #a8a39c;
+      --black-500: #cac6bf;
+      --black-400: #dedbd5;
+      --black-300: #e8e6e2;
+      --black-200: #f7f5f1;
+      --black-100: #fdfcfb;
+      --saffron: #eb5e28;
+      --link: #2563eb;
+      --blue-accent: #5b9dff;
+      --orange-accent: #f6a84a;
+      --purple-accent: #c084fc;
+      --navy: #0d1738;
+      --navy-mid: #314277;
+      --navy-border: #313b5f;
+      --container: 1280px;
+      --radius-6: 6px;
+      --radius-8: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--black-200);
+      color: var(--black-700);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; border: none; background: none; cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container-bordered {
+      max-width: var(--container);
+      margin: 0 auto;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+    }
+
+    .section-pad { padding: 100px 48px; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 12px;
+      min-width: 180px;
+      background: var(--black-900);
+      color: var(--black-100);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-8);
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--black-1000); }
+
+    .btn-primary-sm {
+      height: 32px;
+      padding: 0 10px;
+      min-width: auto;
+      font-size: 12px;
+    }
+
+    .btn-oncolor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+      background: var(--black-100);
+      color: var(--black-1000);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-8);
+      transition: background 0.2s;
+    }
+
+    .btn-oncolor:hover { background: var(--black-300); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      min-width: 180px;
+      padding: 0 12px;
+      background: #fff;
+      color: var(--black-1000);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-8);
+      transition: background 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--black-300); }
+
+    .link-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--link);
+      transition: gap 0.3s;
+    }
+
+    .link-arrow:hover { text-decoration: underline; }
+    .link-arrow:hover svg { margin-left: 4px; }
+
+    .link-blue {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2563eb;
+    }
+
+    .link-blue:hover { text-decoration: underline; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--black-200);
+      border-bottom: 1px solid var(--black-400);
+      transition: box-shadow 0.3s;
+    }
+
+    .header.scrolled { box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+
+    .header-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 56px;
+      padding: 8px 24px;
+    }
+
+    .logo { width: 105px; height: 28px; flex-shrink: 0; display: flex; align-items: center; }
+    .logo img { max-height: 100%; width: auto; object-fit: contain; }
+
+    .nav {
+      display: none;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black-1000);
+      padding: 8px 0;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-item:hover { color: var(--link); }
+
+    .nav-item svg { width: 14px; height: 14px; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+    .sign-in {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--black-1000);
+      padding: 4px 0;
+    }
+
+    .sign-in:hover { color: var(--link); }
+
+    .menu-toggle { display: flex; padding: 4px; color: var(--black-1000); }
+    .menu-toggle svg { width: 18px; height: 18px; }
+
+    .header-spacer { height: 56px; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 56px 0 0 0;
+      background: var(--black-200);
+      z-index: 99;
+      padding: 24px;
+      overflow-y: auto;
+      border-top: 1px solid var(--black-400);
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a, .mobile-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--black-1000);
+      border-bottom: 1px solid var(--black-400);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 710px;
+    }
+
+    .hero-inner {
+      position: relative;
+      min-height: 710px;
+      padding: 100px 48px;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 991px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+      padding: 2px 4px;
+    }
+
+    .hero-badge p { font-size: 14px; color: var(--black-1000); }
+    .hero-badge span { font-weight: 600; }
+
+    .hero-text { display: flex; flex-direction: column; gap: 24px; }
+
+    .hero-text h1 {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--purple-accent);
+    }
+
+    .hero-text p {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #000;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* Logo marquee */
+    .logo-marquee {
+      border-top: 1px solid var(--black-400);
+      border-bottom: 1px solid var(--black-400);
+      padding: 0 8px;
+    }
+
+    .logo-marquee-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+      padding: 40px 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-track img {
+      height: 40px;
+      width: auto;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      margin: 0 40px;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Capabilities */
+    .capabilities {
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+      padding: 100px 0;
+      background: radial-gradient(84.42% 84.32% at 51.63% 100%, #FFB451 0%, #EFC680 24.76%, #B4D8FF 47.6%, #D2E8FF 75%, #FAFDFF 100%);
+    }
+
+    .capabilities-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 32px;
+      padding: 0 48px;
+      margin-bottom: 48px;
+    }
+
+    .capabilities-header h2 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #000;
+    }
+
+    .capabilities-header p {
+      font-size: 16px;
+      color: var(--black-1000);
+      max-width: 400px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 0 48px;
+    }
+
+    .cap-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--black-1000);
+      border-radius: var(--radius-8);
+      height: 540px;
+      overflow: hidden;
+    }
+
+    .cap-card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      gap: 24px;
+      padding: 32px 24px;
+    }
+
+    .cap-card-top { display: flex; flex-direction: column; gap: 32px; flex: 1; }
+
+    .cap-num { font-size: 14px; color: var(--black-800); }
+
+    .cap-label { font-size: 14px; }
+    .cap-label.solve { color: var(--blue-accent); }
+    .cap-label.build { color: var(--orange-accent); }
+    .cap-label.intelligence { color: var(--purple-accent); }
+
+    .cap-card h3 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #fff;
+    }
+
+    .cap-card-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--black-700);
+      letter-spacing: 0.02em;
+    }
+
+    /* Starting point */
+    .starting-point {
+      border-top: 1px solid var(--black-400);
+      padding: 100px 48px;
+    }
+
+    .starting-point h2 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #000;
+      margin-bottom: 48px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 16px;
+      border-bottom: 1px solid var(--black-500);
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 8px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black-700);
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab:hover { color: var(--black-1000); }
+    .tab.active { color: var(--black-1000); border-bottom-color: #000; }
+
+    .steps-row {
+      display: flex;
+      gap: 24px;
+    }
+
+    .step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step-divider {
+      width: 1px;
+      background: var(--black-400);
+      flex-shrink: 0;
+    }
+
+    .step-num {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--black-400);
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black-1000);
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: var(--black-700);
+      line-height: 1.5;
+    }
+
+    .starting-actions {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    /* Dark sections */
+    .dark-sections {
+      border-top: 1px solid var(--black-400);
+    }
+
+    .templates-block {
+      position: relative;
+      min-height: 260px;
+      background: var(--navy);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 64px 48px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .templates-block h2 {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #fff;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .templates-block p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      max-width: 400px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .templates-block .link-blue { position: relative; z-index: 1; color: #2563eb; }
+
+    .templates-img {
+      position: absolute;
+      bottom: 0;
+      right: 32px;
+      width: 576px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .dual-col {
+      padding: 64px 48px;
+      display: flex;
+      gap: 56px;
+      align-items: flex-start;
+    }
+
+    .dual-col.connectors {
+      background: linear-gradient(210deg, var(--navy) 50%, var(--navy-mid));
+      border-right: 1px solid var(--navy-border);
+    }
+
+    .dual-col.security {
+      background: linear-gradient(320deg, var(--navy-mid), var(--navy) 40%);
+      position: relative;
+      min-height: 240px;
+      flex-direction: column;
+    }
+
+    .dual-col h2 {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .dual-col p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+      max-width: 280px;
+    }
+
+    .dual-col img.connector-img { width: 300px; height: auto; flex-shrink: 0; }
+
+    .badges {
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .badges img { height: 66px; width: auto; }
+    .badges img.iso { height: 60px; width: 73px; }
+
+    /* Testimonials */
+    .testimonials {
+      border-bottom: 1px solid var(--black-400);
+      padding: 100px 0;
+    }
+
+    .testimonials-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 0 48px;
+      margin-bottom: 48px;
+    }
+
+    .testimonials-header h2 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #000;
+      flex: 1;
+    }
+
+    .testimonials-header p {
+      font-size: 16px;
+      color: var(--black-700);
+      width: 372px;
+    }
+
+    .testimonials-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-carousel::before,
+    .testimonials-carousel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .testimonials-carousel::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--black-200), transparent);
+    }
+
+    .testimonials-carousel::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--black-200), transparent);
+    }
+
+    .testimonial-track {
+      display: flex;
+      width: max-content;
+      animation: testimonial-marquee 60s linear infinite;
+    }
+
+    .testimonial-track:hover { animation-play-state: paused; }
+
+    @keyframes testimonial-marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .testimonial-card {
+      position: relative;
+      width: 400px;
+      flex-shrink: 0;
+      margin: 0 12px;
+      background: #fff;
+      border-radius: var(--radius-8);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-8);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .testimonial-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black-1000);
+    }
+
+    .testimonial-handle {
+      font-size: 12px;
+      color: var(--black-700);
+    }
+
+    .testimonial-quote {
+      font-size: 14px;
+      color: var(--black-700);
+      line-height: 1.5;
+    }
+
+    .testimonial-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 24px;
+      height: 24px;
+      color: #fff;
+    }
+
+    .cta-inline {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-top: 48px;
+      padding: 0 24px;
+    }
+
+    /* FAQ */
+    .faq {
+      background: #fff;
+      padding: 100px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .faq-inner { width: 100%; max-width: 800px; }
+
+    .faq-label {
+      font-size: 14px;
+      color: var(--black-600);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--black-400);
+      margin-bottom: 32px;
+    }
+
+    .faq-item { border-bottom: 1px solid var(--black-400); }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 12px 0;
+      text-align: left;
+      gap: 16px;
+    }
+
+    .faq-question-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--black-1000);
+    }
+
+    .faq-new {
+      font-size: 12px;
+      color: var(--saffron);
+    }
+
+    .faq-chevron {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      color: var(--black-1000);
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 16px;
+      font-size: 14px;
+      color: var(--black-700);
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* Final CTA */
+    .final-cta {
+      position: relative;
+      height: 500px;
+      border-top: 1px solid var(--black-400);
+      overflow: hidden;
+    }
+
+    .final-cta-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .final-cta-content {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    .final-cta h2 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #000;
+      max-width: 700px;
+    }
+
+    .final-cta p {
+      font-size: 16px;
+      color: var(--black-700);
+      max-width: 500px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--black-400);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+      padding: 64px 48px;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--black-700);
+      margin-bottom: 24px;
+    }
+
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+
+    .footer-col a {
+      font-size: 14px;
+      color: var(--black-1000);
+      white-space: nowrap;
+    }
+
+    .footer-col a:hover { color: var(--link); }
+
+    .footer-copy {
+      border-top: 1px solid var(--black-400);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--black-700);
+      max-width: var(--container);
+      margin: 0 auto;
+      border-left: 1px solid var(--black-400);
+      border-right: 1px solid var(--black-400);
+    }
+
+    /* Responsive */
+    @media (min-width: 1024px) {
+      .nav { display: flex; }
+      .menu-toggle { display: none; }
+    }
+
+    @media (max-width: 1023px) {
+      .hero { min-height: 480px; }
+      .hero-inner { min-height: 480px; padding: 64px 24px; }
+      .hero-text h1 { font-size: 18px; }
+      .section-pad, .starting-point, .capabilities, .testimonials, .faq { padding: 64px 24px; }
+      .capabilities-header, .cards-grid, .testimonials-header { padding: 0; flex-direction: column; align-items: flex-start; }
+      .capabilities-header h2, .starting-point h2, .testimonials-header h2, .final-cta h2 { font-size: 30px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .cap-card { height: auto; min-height: 480px; }
+      .steps-row { flex-direction: column; }
+      .step-divider { display: none; }
+      .dual-grid { grid-template-columns: 1fr; }
+      .dual-col { flex-direction: column; gap: 32px; padding: 48px 24px; }
+      .dual-col.connectors { border-right: none; border-bottom: 1px solid var(--navy-border); }
+      .templates-block { padding: 48px 24px; }
+      .templates-img { position: relative; right: auto; width: 100%; height: 100px; margin-top: 24px; }
+      .badges { position: relative; right: auto; bottom: auto; margin-top: 24px; }
+      .testimonials-header { flex-direction: column; align-items: flex-start; }
+      .testimonials-header p { width: 100%; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); padding: 48px 24px; }
+      .final-cta { height: auto; }
+      .hero-actions .btn-primary, .hero-actions .btn-outline { width: 100%; }
+      .header-spacer { height: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .starting-actions { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="header-bar">
+        <a href="/" class="logo" aria-label="Rocket home">
+          <img src="logo_transparent.png" alt="Logo">
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <div class="nav-item">Services
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+          </div>
+          <div class="nav-item">Resources
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+          </div>
+          <a href="/pricing" class="nav-item">Pricing</a>
+          <a href="/contact" class="nav-item">Contact Us</a>
+        </nav>
+        <div class="header-actions">
+          <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open menu">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Services</a>
+    <a href="#">Resources</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/contact">Contact Us</a>
+  </div>
+
+  <div class="header-spacer"></div>
+
+  <main>
+    <section class="hero">
+      <div class="container-bordered">
+        <div class="hero-inner">
+          <img src="hero.png" alt="Soft gradient background behind the hero headline" class="hero-bg">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1>Let's Build Something Great.</h1>
+              <p>From websites and applications to branding, advertisements, logos, menus, and digital marketing materials, paléX helps businesses and companies build a stronger and more professional presence.</p>
+            </div>
+            <div class="hero-actions">
+              <button type="button" class="btn-primary">Get Started</button>
+              <a href="/see-it-in-action" class="btn-outline">See it in action</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="logo-marquee" aria-hidden="true">
+      <div class="logo-marquee-inner">
+        <div class="marquee-track">
+          <img src="logo_transparent.png" alt="Logo">
+          <img src="logo_transparent.png" alt="Logo">
+          <img src="logo_transparent.png" alt="Logo">
+          <img src="logo_transparent.png" alt="Logo">
+        </div>
+      </div>
+    </section>
+
+    <section class="capabilities" id="capabilities">
+      <div class="container-bordered">
+        <div class="capabilities-header">
+          <h2>Premium Digital Experiences That Convert</h2>
+          <p>We construct high-end corporate sites, custom applications, and strategic marketing assets designed strictly for high credibility, seamless operation, and conversion dominance.</p>
+        </div>
+        <div class="cards-grid">
+          <article class="cap-card">
+            <div class="cap-card-body">
+              <div class="cap-card-top">
+                <div>
+                  <p class="cap-num">01</p>
+                  <p class="cap-label solve">Development</p>
+                </div>
+                <div>
+                  <h3>Website Development</h3>
+                  <p class="cap-card-desc">Built for corporate growth and scalability, this high-end framework includes advanced features such as interactive websites, 3D experiences, custom web applications, and integrated booking systems.</p>
+                  <div class="tags">
+                    <span class="tag">▸ Basic Business Website</span>
+                    <span class="tag">▸ Professional Business Website</span>
+                    <span class="tag">▸ Premium Business Website</span>
+                    <span class="tag">▸ Portfolio Website</span>
+                    <span class="tag">▸ Church Website</span>
+                    <span class="tag">▸ Restaurant / Fast Food Website</span>
+                    <span class="tag">▸ Real Estate Website</span>
+                    <span class="tag">▸ School / Education Website</span>
+                    <span class="tag">▸ NGO / NPO Website</span>
+                    <span class="tag">▸ E-Commerce Store</span>
+                    <span class="tag">▸ Website Redesign</span>
+                    <span class="tag">▸ Website Maintenance</span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-oncolor">Explore Website Development</button>
+            </div>
+          </article>
+          <article class="cap-card">
+            <div class="cap-card-body">
+              <div class="cap-card-top">
+                <div>
+                  <p class="cap-num">02</p>
+                  <p class="cap-label build">Design</p>
+                </div>
+                <div>
+                  <h3>Graphic Design</h3>
+                  <p class="cap-card-desc">Elite presentation structures formulated across layout assets</p>
+                  <div class="tags">
+                    <span class="tag">▸ Logo Design</span>
+                    <span class="tag">▸ Premium Logo Design</span>
+                    <span class="tag">▸ Business Card Design</span>
+                    <span class="tag">▸ Flyer Design</span>
+                    <span class="tag">▸ Poster Design</span>
+                    <span class="tag">▸ Brochure Design</span>
+                    <span class="tag">▸ Menu Design</span>
+                    <span class="tag">▸ Company Profile Design</span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-oncolor">Explore Graphic Design</button>
+            </div>
+          </article>
+          <article class="cap-card">
+            <div class="cap-card-body">
+              <div class="cap-card-top">
+                <div>
+                  <p class="cap-num">03</p>
+                  <p class="cap-label intelligence">Marketing</p>
+                </div>
+                <div>
+                  <h3>Advertising &amp; Branding</h3>
+                  <p class="cap-card-desc">Amplifying digital dominance through calculated communication vectors.</p>
+                  <div class="tags">
+                    <span class="tag">▸ Social Media Advertisement</span>
+                    <span class="tag">▸ Product Advertisement Design</span>
+                    <span class="tag">▸ Promotional Banner Design</span>
+                    <span class="tag">▸ Social Media Post Design</span>
+                    <span class="tag">▸ Social Media Cover/Banner</span>
+                    <span class="tag">▸ Brand Identity Package</span>
+                    <span class="tag">▸ Marketing Material Bundle</span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-oncolor">Explore Advertising &amp; Branding</button>
+            </div>
+          </article>
+          <article class="cap-card">
+            <div class="cap-card-body">
+              <div class="cap-card-top">
+                <div>
+                  <p class="cap-num">04</p>
+                  <p class="cap-label solve">Solutions</p>
+                </div>
+                <div>
+                  <h3>Digital Solutions</h3>
+                  <p class="cap-card-desc">Integrated custom internal automation tools and native software code blocks.</p>
+                  <div class="tags">
+                    <span class="tag">▸ Mobile App Development</span>
+                    <span class="tag">▸ Link Hub Website</span>
+                    <span class="tag">▸ QR Code Landing Page</span>
+                    <span class="tag">▸ Digital Business Card</span>
+                    <span class="tag">▸ Custom Digital Solution</span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-oncolor">Explore Digital Solutions</button>
+            </div>
+          </article>
+          <article class="cap-card">
+            <div class="cap-card-body">
+              <div class="cap-card-top">
+                <div>
+                  <p class="cap-num">05</p>
+                  <p class="cap-label build">Hosting</p>
+                </div>
+                <div>
+                  <h3>Publishing</h3>
+                  <p class="cap-card-desc">Comprehensive submission, configuration, and deployment procedures across global digital distribution platforms and marketplaces.</p>
+                  <div class="tags">
+                    <span class="tag">Website Hosting &amp; Domains:</span>
+                    <span class="tag">▸ Standard Hosting (palexdigital.github.io/YOUR-SITE)</span>
+                    <span class="tag">▸ Plus Hosting (YOUR-SITE.pages.dev)</span>
+                    <span class="tag">▸ Premium Hosting (YOUR-SITE.com)</span>
+                    <span class="tag">App Hosting:</span>
+                    <span class="tag">▸ Apple App Store</span>
+                    <span class="tag">▸ Google Play Store</span>
+                    <span class="tag">▸ paléX App Store</span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-oncolor">Explore Publishing</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="starting-point">
+      <div class="container-bordered">
+        <h2>Pick your starting point.<br>Rocket connects the rest.</h2>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab active" role="tab" data-tab="0">I need to figure out what to build</button>
+          <button type="button" class="tab" role="tab" data-tab="1">I'm ready to build</button>
+          <button type="button" class="tab" role="tab" data-tab="2">I want to track competitors</button>
+        </div>
+        <div class="steps-row" id="stepsRow">
+          <div class="step">
+            <p class="step-num">01</p>
+            <div>
+              <p class="step-title">Describe the problem.</p>
+              <p class="step-desc">Type any market problem, decision, or opportunity. Add a doc, deck, or link for context.</p>
+            </div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step">
+            <p class="step-num">02</p>
+            <div>
+              <p class="step-title">Get a clear recommendation.</p>
+              <p class="step-desc">A structured brief with research, evidence, and a point of view. Ready to present to a room, hand to a developer, or take straight into Build.</p>
+            </div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step">
+            <p class="step-num">03</p>
+            <div>
+              <p class="step-title">Ship it — without starting over.</p>
+              <p class="step-desc">Take your brief straight into Build. Rocket already has the full context — no re-explaining, no lost decisions.</p>
+            </div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step">
+            <p class="step-num">04</p>
+            <div>
+              <p class="step-title">Stay ahead of what moves next.</p>
+              <p class="step-desc">Rocket watches your competition continuously. Every signal they send becomes intelligence you act on.</p>
+            </div>
+          </div>
+        </div>
+        <div class="starting-actions">
+          <button type="button" class="btn-primary">Get started for free</button>
+          <a href="/see-it-in-action" class="link-arrow">
+            See it in action
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-sections">
+      <div class="container-bordered">
+        <div class="templates-block">
+          <h2>25,000+ starting points.<br>Templates for every use case.</h2>
+          <p>Pick one that's close to what you need. Rocket adapts it to your context — brand, stack, and goals already in.</p>
+          <a href="/templates" class="link-blue">
+            Browse templates
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+          </a>
+          <img src="images/templates.png" alt="Collage of Rocket app template previews" class="templates-img">
+        </div>
+        <div class="dual-grid">
+          <div class="dual-col connectors">
+            <div>
+              <h2>Your data and tools. Already connected.</h2>
+              <p>Plug in your internal systems, APIs, and third-party tools — so what you build works in your world, not just in a demo.</p>
+              <a href="#" class="link-blue">
+                Explore connectors
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+              </a>
+            </div>
+            <img src="images/connectors.png" alt="Illustration of connectors linking external APIs and tools" class="connector-img">
+          </div>
+          <div class="dual-col security">
+            <div>
+              <h2>Built to pass procurement on day one.</h2>
+              <p>SOC 2, ISO 27001, GDPR, CCPA, SSO/SAML, role-based access, and audit logs — all on by default, not bolted on later.</p>
+              <button type="button" class="link-blue">
+                Start building securely
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+              </button>
+            </div>
+            <div class="badges">
+              <img src="images/soc2.png" alt="SOC 2 certification">
+              <img src="images/iso.png" alt="ISO 27001 certification" class="iso">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container-bordered">
+        <div class="testimonials-header">
+          <h2>1.5 million people.<br>Here is what they found.</h2>
+          <p>Solo founders. Product teams. Engineering teams. Sales leaders. Consultants. All using Rocket to think, decide, and build— in one place.</p>
+        </div>
+        <div class="testimonials-carousel">
+          <div class="testimonial-track" id="testimonialTrack"></div>
+        </div>
+        <div class="cta-inline">
+          <button type="button" class="btn-primary">Put Rocket to work</button>
+          <a href="/see-it-in-action" class="link-arrow">
+            See it in action
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container-bordered">
+        <div class="faq-inner">
+          <p class="faq-label">QUESTIONS WORTH ANSWERING</p>
+          <div class="faq-item open">
+            <button type="button" class="faq-question" aria-expanded="true">
+              <span class="faq-question-text">What is Rocket?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z"/></svg>
+            </button>
+            <div class="faq-answer">Rocket is the world's first Vibe Solutioning platform. It covers the full arc of how any business should operate — from the first question to a live product to continuous competitive intelligence — in one system, with one shared context that compounds over time.
+
+Most AI tools help you build faster. Rocket tells you what to build, builds it, and keeps you ahead of what happens after. The work is only as good as the thinking before it. Rocket is built around that belief.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">What is Vibe Solutioning? <span class="faq-new">New</span></span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">Vibe Solutioning is the practice of thinking rigorously before building— and building directly from that thinking— all in one system. Research. Decide. Build. Operate. Grow.
+
+Vibe coding starts at line one. Vibe Solutioning starts before it. The most expensive mistake in any business is not a bad execution. It is a good execution of the wrong thing. Vibe Solutioning is the answer to that problem.
+
+Rocket is the first platform built around this practice. Every capability— Solve, Build, Intelligence — is connected by one shared context that makes every decision smarter than the last.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">What does Rocket actually do?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">Rocket has three capabilities, all connected by one shared context.
+
+Solve — Describe any market problem, business decision, or opportunity. Rocket researches it, returns evidence, and delivers a clear recommendation. Board decks, market entry analyses, competitor briefs, campaign strategies, regulatory research. In hours, not weeks.
+
+Build — Take any brief or decision into production. Web apps, mobile apps, landing pages, internal dashboards, customer portals. Production-grade from the first generation, built from the full context of everything already decided in the project.
+
+Intelligence — Rocket watches your competitors continuously. Website changes, pricing shifts, new product launches, hiring signals, ad activity. It does not just flag changes — it tells you what they mean and what to do next.
+
+Use any one. Use all three. Either way, nothing gets lost between the thinking and the building.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">How is Rocket different from ChatGPT or Cursor? <span class="faq-new">New</span></span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">ChatGPT answers questions. Cursor writes code. Both are useful. Neither of them tells you what to build, builds it from the strategic context you already established, and then watches the market after you ship.
+
+The deeper difference is architecture. Every AI tool starts from zero. You re-explain who you are, what you have decided, what you are building — every session, every tool, every team member. Everything gets lost at the handoff.
+
+Rocket is built on the opposite architecture. Add your context once. Every task, every teammate, every capability operates from the same foundation — and it compounds. The research you did last week is present when your developer opens a build task today. The competitive brief is present when your landing page is written. Nothing resets. Everything compounds.
+
+One complete system beats seven disconnected tools.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">Can I use just one capability, or do I need all three? <span class="faq-new">New</span></span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">Use whichever part is most urgent. There is no requirement to use all three.
+
+Some people start with Solve to research a market or prepare a board deck and never open Build. Some teams use Build alone to ship products from specs they already have. Some operators use Intelligence only, to track competitors across a market they already understand.
+
+The value of using more than one is that context accumulates. A landing page built in the same project as a Solve research brief automatically speaks to the specific customer problem that research identified. The strategy and the build are not just compatible — they are connected. But that connection is a benefit, not a requirement. Start with what is most urgent.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">Do I need to know how to code?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">No. Rocket is built for three types of people: builders who write code and want production-grade output without manual design work; operators who need strategic research, market analysis, and competitive intelligence without a technical background; and teams who want strategy and execution in the same place without being the integration layer between tools.
+
+You describe what you need in plain language. Rocket handles everything after that. If you do write code and want to bring an existing codebase, Rocket picks up any Next.js project and continues it— no starting over.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">Who owns the IP and the code?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">You do. Everything Rocket generates — code, research outputs, strategy briefs, intelligence reports — belongs to you. Rocket does not claim ownership over anything produced inside your projects.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">Do you offer free plans?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">Yes. You can start Rocket for free and try Build capability — before choosing a plan. No credit card required to get started.
+
+Paid plans unlock higher usage limits, Solve and Intelligence capabilities.</div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span class="faq-question-text">Is Rocket secure and scalable?</span>
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            </button>
+            <div class="faq-answer">Yes. Rocket is built to pass procurement on day one. SOC 2, ISO 27001, GDPR, CCPA, SSO/SAML, role-based access, and audit logs— all on by default, not bolted on later.
+
+Role-based access means every team member has exactly the permissions they need. Admins manage the workspace. Creators build and research. Viewers see without editing. Nothing is over-shared.
+
+Intelligence monitors publicly available information only. Rocket does not access private company data, internal communications, or non-public sources.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container-bordered" style="position:relative;height:100%">
+        <img src="images/cta-bg.jpg" alt="Decorative background for the call-to-action section" class="final-cta-bg">
+        <div class="final-cta-content">
+          <h2>The work is only as good as the thinking before it.</h2>
+          <p>You already know what you're trying to figure out. Type it. Rocket handles everything after that.</p>
+          <button type="button" class="btn-primary">Put Rocket to work</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/solve">Solve</a></li>
+          <li><a href="/build">Build</a></li>
+          <li><a href="/intelligence">Intelligence</a></li>
+          <li><a href="/see-it-in-action">See it in action</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="/blog">Blogs</a></li>
+          <li><a href="/templates">Templates</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Connectors</a></li>
+          <li><a href="/sitemap">Sitemap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Socials</h4>
+        <ul>
+          <li><a href="#">X/Twitter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms-service">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/dpa">GDPR/DPA</a></li>
+          <li><a href="/ccpa">CCPA Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2026 Rocket USA Inc.</div>
+  </footer>
+
+  <script>
+    (function () {
+      var header = document.getElementById('header');
+      var menuToggle = document.getElementById('menuToggle');
+      var mobileMenu = document.getElementById('mobileMenu');
+
+      window.addEventListener('scroll', function () {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+      });
+
+      menuToggle.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        var isOpen = mobileMenu.classList.contains('open');
+        menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      });
+
+      document.querySelectorAll('.tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.faq-question').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = btn.closest('.faq-item');
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(function (i) {
+            i.classList.remove('open');
+            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            var chevron = i.querySelector('.faq-chevron path');
+            if (chevron) chevron.setAttribute('d', 'M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z');
+          });
+          if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var path = item.querySelector('.faq-chevron path');
+            if (path) path.setAttribute('d', 'M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z');
+          }
+        });
+      });
+
+      var testimonials = [
+        { name: 'Erina Nakiri', handle: '', quote: "I must say I'm super impressed with the internal tool feature that does a really good job very professional compared to other AIs", avatar: 'images/avatar1.jpg' },
+        { name: 'Stri-len', handle: '', quote: "I've been using Cursor since day one. By the looks of it, Rocket could be the next Figma. I'm very impressed by the presentation, onboarding, and mostly the phenomenal output. It's nice to see the code tech stack is done as impartially as possible. Well done!", avatar: 'images/avatar2.jpg' },
+        { name: 'Kshitij Mishra', handle: 'GTM Engineer | AI Sales Systems', quote: "We had a web design ready for months but deployment was dragging. We tried a mock on Rocket recently, and it honestly blew our minds. It has opened up so many new doors. Would love to stay in the loop with what you're building!", avatar: 'images/avatar3.jpg' },
+        { name: 'CaptainDev', handle: '', quote: 'Rocket saved me more time in 10 minutes than my last 3 frameworks combined. Big respect for what you built!', avatar: 'images/avatar4.jpg' },
+        { name: 'Mia Williams', handle: '@miatravls', quote: "I just one shotted a prompt using @rocketdotnew and I can't put into words how astronomically better it is than any other no code AI tool. Actually made me question why I ever paid for Bolt, Lovable, V0, a0 etc when this tool puts them all to shame. Incredibly impressed, wow.", avatar: 'images/avatar5.jpg' },
+        { name: 'T-Bot 🙌', handle: '', quote: 'Yesterday I gave a try to what you guys have built ... simply magical, beautiful and definitely the best experience I had so far compared to the competitors!!!', avatar: 'images/avatar6.jpg' },
+        { name: 'FaizalKasim', handle: '@FaizalKasim_UNG', quote: 'I tested one for the mobile app with my no-code and programming skills and experience. However, the Rocket made it for me perfectly by spending only about 200k credits. Amazing.', avatar: 'images/avatar7.jpg' },
+        { name: 'Solopr11', handle: '', quote: "I've been trying out every no-code AI website/app builder you can think of for months, and Rocket is 100x better than anything else.", avatar: 'images/avatar8.jpg' },
+        { name: 'Cris Cafiero', handle: '@criscafiero', quote: "@rocketdotnew - I've tried replit & lovable but rocket's ability to one shot working app is next level", avatar: 'images/avatar9.jpg' }
+      ];
+
+      function createCard(t) {
+        return '<div class="testimonial-card">' +
+          '<div class="testimonial-author">' +
+          '<div class="testimonial-avatar"><img src="' + t.avatar + '" alt="' + t.name + ', testimonial author"></div>' +
+          '<div><p class="testimonial-name">' + t.name + '</p>' +
+          (t.handle ? '<p class="testimonial-handle">' + t.handle + '</p>' : '') +
+          '</div></div>' +
+          '<p class="testimonial-quote">&ldquo;' + t.quote + '&rdquo;</p>' +
+          '</div>';
+      }
+
+      var track = document.getElementById('testimonialTrack');
+      var cardsHtml = testimonials.map(createCard).join('');
+      track.innerHTML = cardsHtml + cardsHtml;
+    })();
+  </script>
+</body>
+</html>
